@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+	  <img src="image.jpg" alt="black bear">
+	</div>
+    <div id="app">
+	  <h2 style="color:forestgreen;">想說的話寫在這邊<br/>能不能顯示都看緣份</h2>	  
+      <pre style="color:darkgreen;" class="my_dialog">{{description}}</pre>
+	  <hr>
+      <h2>查詢之前填過的地址</h2>
+      <input v-model="userName" id="input_username" type="text" placeholder="你的名子" onkeyup="enable_button()"/>
+      <button @click="searchUser" id="btn_search" disabled>搜尋</button>
+
+      <p v-if="search_loading" class="loading">
+		資料讀取中
+		<span>.</span>
+		<span>.</span>
+		<span>.</span>
+	  </p>
+	  
+      <!-- 查詢回來的的地址 -->
+	  <p v-if="search_done">
+	  郵遞區號：{{zone_id}}
+	   <br/>地址：{{address}}
+	  </p>
+
+      <h2>查詢結果確認</h2>
+      <input
+        v-model="mdf"
+        :value="false"
+        type="radio"
+        name="add"
+        id="correct"
+      />
+      <label for="correct">正確</label>
+      <br/><br/>
+      <input v-model="mdf" :value="true" type="radio" name="add" id="wrong" />
+      <label for="wrong">不正確，我要修改</label>
+      <label v-if="mdf">：</label> <br />
+      <input v-if="mdf" v-model="req.zone_id" type="text" size="10" maxlength="5" placeholder="郵遞區號(5碼)"/>
+	  <input v-if="mdf" v-model="req.address" type="text" size="50" placeholder="地址"/>
+	  
+	  <h2 style="color:royalblue;">最終確認</h2>
+	  <p v-if="mdf" style="color:royalblue;">
+	  姓名：{{userName}}
+	  <br/><br/>郵遞區號：{{req.zone_id}}
+	  <br/><br/>地址：{{req.address}}
+	  </p>
+	  <p v-else="mdf" style="color:royalblue;">
+	  姓名：{{userName}}
+	  <br/><br/>郵遞區號：{{zone_id}}
+	  <br/><br/>地址：{{address}}
+	  </p>
+      
+      <button @click="confirmUser" id="btn_confirm" disabled>確認送出</button>
+	  <p v-if="send_loading" class="loading">
+		資料送出中
+		<span>.</span>
+		<span>.</span>
+		<span>.</span>
+	  </p>
+	  <p v-if="send_done">
+	  <label v-if="send_ok" style="color:forestgreen;">成功送出</label>
+	  <label v-else="send_ok" style="color:red;">送出失敗：{{send_status}}</label>
+	  </p>
+	  <p class="extend"></p>
+    </div>
+	
+	<style>
+	.loading { color: tomato;}
+		.loading{
+		  color: tomato;
+		  font-size: 20px;
+		  animation: dots infinite alternate  .5s
+		}
+		
+		
+		@keyframes dots{
+			from{ opacity: 0; }
+			to{ opacty: 1; }
+		}
+	
+	
+	</style>
+	<style>
+	.container {
+	  position: relative;
+	  text-align: left;
+	  color: black;
+	}
+
+	.bottom-left {
+	  position: absolute;
+	  bottom: 8px;
+	  left: 16px;
+	}
+
+	.top-left {
+	  position: absolute;
+	  top: 8px;
+	  left: 16px;
+	}
+
+	.top-right {
+	  position: absolute;
+	  top: 8px;
+	  right: 16px;
+	}
+
+	.bottom-right {
+	  position: absolute;
+	  bottom: 8px;
+	  right: 16px;
+	}
+
+	.centered {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	}
+	</style>
+	<style>
+	pre.my_dialog {
+	  border: 1px dashed forestgreen; 
+	  border-radius: 5px;
+	  padding-top: 30px;
+	  padding-bottom: 30px;
+	  padding-left: 10px;
+	  padding-right: 10px;
+	}
+	p.extend {
+	  padding-bottom: 200px;
+	}
+	</style>
+
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/all.js"></script>
+  </body>
+</html>
