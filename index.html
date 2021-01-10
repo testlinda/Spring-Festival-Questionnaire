@@ -45,13 +45,13 @@
       <input v-if="mdf" v-model="req.zone_id" type="text" size="10" maxlength="5" placeholder="郵遞區號(5碼)"/>
 	  <input v-if="mdf" v-model="req.address" type="text" size="50" placeholder="地址"/>
 	  
-	  <h2 style="color:royalblue;">Step 3. 最終確認</h2>
-	  <p v-if="mdf" style="color:royalblue;">
+	  <h2 style="color:forestgreen;">Step 3. 最終確認</h2>
+	  <p v-if="mdf" class="final_check">
 	  姓名：{{userName}}
 	  <br/><br/>郵遞區號：{{req.zone_id}}
 	  <br/><br/>地址：{{req.address}}
 	  </p>
-	  <p v-else="mdf" style="color:royalblue;">
+	  <p v-else="mdf" class="final_check">
 	  姓名：{{userName}}
 	  <br/><br/>郵遞區號：{{zone_id}}
 	  <br/><br/>地址：{{address}}
@@ -131,6 +131,16 @@
 	  border-radius: 5px;
 	  padding-top: 30px;
 	  padding-bottom: 30px;
+	  padding-left: 10px;
+	  padding-right: 10px;
+	}
+	p.final_check {
+	  color: forestgreen;
+	  border: 1px dashed forestgreen; 
+	  border-radius: 5px;
+	  background-color: Wheat;
+	  padding-top: 10px;
+	  padding-bottom: 10px;
 	  padding-left: 10px;
 	  padding-right: 10px;
 	}
