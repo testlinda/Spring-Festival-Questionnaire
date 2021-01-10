@@ -37,14 +37,13 @@
         name="add"
         id="correct"
       />
-      <label for="correct">正確</label>
-      <br/><br/>
+      <label for="correct">正確</label><br/><br/>
       <input v-model="mdf" :value="true" type="radio" name="add" id="wrong" />
       <label for="wrong">不正確，我要修改</label>
       <label v-if="mdf">：</label> <br />
       <input v-if="mdf" v-model="req.zone_id" type="text" size="10" maxlength="5" placeholder="郵遞區號(5碼)"/>
-	  <input v-if="mdf" v-model="req.address" type="text" size="50" placeholder="地址"/>
-	  
+	  <a v-if="mdf" href="https://www.post.gov.tw/post/internet/Postal/index.jsp?ID=208" target="_blank">查詢郵遞區號</a><br/>
+	  <input v-if="mdf" v-model="req.address" type="text" size="50" placeholder="地址"/>	    
 	  <h2 style="color:forestgreen;">Step 3. 最終確認</h2>
 	  <p v-if="mdf" class="final_check">
 	  姓名：{{userName}}
