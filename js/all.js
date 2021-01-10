@@ -38,16 +38,10 @@ var app = new Vue({
            .catch(function (err) {
              console.error(err);
            });
-      //this.address = "我的地址";
     },
     searchUser() {
 		this.search_loading = true;
 		this.search_done = false;
-      /* 
-        搜尋user地址    
-        post api 要放的地方
-        */
-		
 		var mydata = JSON.stringify({
 				"name": this.userName,
 				"action": 'get'
@@ -74,9 +68,6 @@ var app = new Vue({
     confirmUser() {
 		this.send_loading = true;
 		this.send_done = false;
-      /* 
-          送出user的姓名+地址
-          */
 		this.req.name = this.userName;
 		if (!this.mdf) this.req.zone_id = this.zone_id;
 		if (!this.mdf) this.req.address = this.address;

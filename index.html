@@ -13,7 +13,7 @@
 	  <h2 style="color:forestgreen;">想說的話寫在這邊<br/>能不能顯示都看緣份</h2>	  
       <pre style="color:darkgreen;" class="my_dialog">{{description}}</pre>
 	  <hr>
-      <h2>查詢之前填過的地址</h2>
+      <h2>Step 1. 查詢之前填過的地址</h2>
       <input v-model="userName" id="input_username" type="text" placeholder="你的名子" onkeyup="enable_button()"/>
       <button @click="searchUser" id="btn_search" disabled>搜尋</button>
 
@@ -23,14 +23,13 @@
 		<span>.</span>
 		<span>.</span>
 	  </p>
-	  
-      <!-- 查詢回來的的地址 -->
+
 	  <p v-if="search_done">
 	  郵遞區號：{{zone_id}}
 	   <br/>地址：{{address}}
 	  </p>
 
-      <h2>查詢結果確認</h2>
+      <h2>Step 2. 查詢結果確認</h2>
       <input
         v-model="mdf"
         :value="false"
@@ -46,7 +45,7 @@
       <input v-if="mdf" v-model="req.zone_id" type="text" size="10" maxlength="5" placeholder="郵遞區號(5碼)"/>
 	  <input v-if="mdf" v-model="req.address" type="text" size="50" placeholder="地址"/>
 	  
-	  <h2 style="color:royalblue;">最終確認</h2>
+	  <h2 style="color:royalblue;">Step 3. 最終確認</h2>
 	  <p v-if="mdf" style="color:royalblue;">
 	  姓名：{{userName}}
 	  <br/><br/>郵遞區號：{{req.zone_id}}
