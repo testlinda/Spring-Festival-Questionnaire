@@ -10,46 +10,32 @@
 	  <img src="https://i.imgur.com/EzmGunF.jpg" alt="black bear">
 	</div>
     <div id="app">
-	  <h2>想說的話寫在這邊<br/>希望能成功顯示出來</h2>	  
-      <pre style="color:darkgreen;" class="my_dialog">{{description}}</pre>
-	  <hr>
-      <h2>查詢之前填過的地址</h2>
-      <input v-model="userName" id="input_username" type="text" placeholder="你的名子" onkeyup="enable_button()"/>
-      <button @click="searchUser" id="btn_search" disabled>搜尋</button>
+	  <h2>修改資料</h2>
+	  <p class="edit_box">
+	  姓名：{{userName}}	  
+	  <br/><br/>
+	  郵遞區號(6碼)：
+	  <input id="input_zoneid" v-model="zone_id" type="digit" size="10" maxlength="6"/>
+	  <button @click="getZipCodeManually" id="btn_test">手動查詢</button>
+	  <button @click="getZipCode" id="btn_test">自動查詢</button>
+	  <label v-if="search_loading" style="color:forestgreen;">查詢中...</label>
+	  <label v-if="search_done && search_ok" style="color:forestgreen;">查詢結果：{{zone_id}}</label>
+	  <label v-else-if="search_done && (!search_ok)" style="color:red;">查詢失敗：請確認地址正確</label>
+      <br/><br/>地址：
+	  <input id="input_address" v-model="address" type="text" size="50"/>
+	  </p>
 	  
-	  <p></p>	 
-
-      <p v-if="search_loading" class="loading">
-		資料讀取中
-		<span>.</span>
-		<span>.</span>
-		<span>.</span>
+	  <p class="address_box">
+	  姓名：{{userName}}
+	  <br/><br/>郵遞區號(6碼)：{{zone_id}}
+	  <br/><br/>地址：{{address}}
+	  <br/><br/>
+	  <input type="checkbox" id="cb_doublecheck" onclick="enable_send()">
+	  <label for="cb_doublecheck">我確認填寫正確囉！</label>
+	  <input name="box1" type="hidden"   value="0" />
 	  </p>
-
-	  <p class="address_box" v-if="search_done" >
-	   郵遞區號：{{zone_id}}<br/>
-	   地址：{{address}}
-	   <br/><br/>
-	   <input
-		v-if="search_done"
-        v-model="mdf"
-        :value="false"
-        type="radio"
-        name="add"
-        id="correct" />
-      <label for="correct">確認，我要送出</label><br/>
-      <input 
-		v-model="mdf" 
-		:value="true" 
-		type="radio" 
-		name="add" 
-		id="wrong" />
-      <label for="wrong">我要新增/修改</label>
-	  </p>
-      
-	  <p class="empty_box"></p>
-      
-      <button @click="gotoNext" id="btn_confirm" disabled>下一步</button>
+	  
+      <button @click="confirmSend" id="btn_confirm" disabled>確認送出</button>
 	  <p v-if="send_loading" class="loading">
 		資料送出中
 		<span>.</span>
@@ -58,7 +44,7 @@
 	  </p>
 	  <p v-if="send_done">
 	  <label v-if="send_ok" style="color:forestgreen;">成功送出</label>
-	  <label v-else="send_ok" style="color:red;">送出失敗：{{send_status}}</label>
+	  <label v-else="send_ok" style="color:red;">送出失敗：{{send_status}}，請晚點再試一次QQ</label>
 	  </p>
 	  <p class="extend"></p>
     </div>
@@ -71,12 +57,10 @@
 		  animation: dots infinite alternate  .5s
 		}
 		
-		
 		@keyframes dots{
 			from{ opacity: 0; }
 			to{ opacty: 1; }
 		}
-	
 	
 	</style>
 	<style>
@@ -130,6 +114,13 @@
 	  padding-left: 10px;
 	  padding-right: 10px;
 	}
+	p.edit_box {
+	  color: #272727;
+	  padding-top: 10px;
+	  padding-bottom: 10px;
+	  padding-left: 10px;
+	  padding-right: 10px;
+	}
 	p.address_box {
 	  color: #272727;
 	  border: 1px dashed forestgreen; 
@@ -140,9 +131,6 @@
 	  padding-left: 10px;
 	  padding-right: 10px;
 	}
-	p.empty_box {
-	  padding-bottom: 10px;
-	}
 	p.extend {
 	  padding-bottom: 200px;
 	}
@@ -150,6 +138,6 @@
 
     <script src="./js/vue.js"></script>
     <script src="./js/axios.min.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/edit.js"></script>
   </body>
 </html>

@@ -26,18 +26,18 @@ var app = new Vue({
   },
   methods: {
 	getDescription() {
-			
-         axios({
-           method: "get",
-           url: "https://script.google.com/macros/s/AKfycbwRxIW5c-RPBmfLAHcZRauHq_z6TzrCkw-fYOXzLP54BFPQtIxb/exec",
-         })
-           .then((res) => {
-             console.log(res);
+		 axios({
+		   method: "get",
+		   url: "https://script.google.com/macros/s/AKfycbz2uriK0JEPFjySOkcJZAWAZb1QQ8E3Ng1tLO6oFfr7b2-K3EdSkxLNtrx9RSdlxemr/exec",
+		 })
+		   .then((res) => {
+			 console.log(res);
 			 this.description = res.data;
 			})
-           .catch(function (err) {
-             console.error(err);
-           });
+		   .catch(function (err) {
+			 console.error(err);
+		   });
+		 
     },
     searchUser() {
 		this.search_loading = true;
@@ -65,12 +65,12 @@ var app = new Vue({
              console.error(err);
            });
     },
-    confirmUser() {
+    confirmSend() {
 		this.send_loading = true;
 		this.send_done = false;
 		this.req.name = this.userName;
-		if (!this.mdf) this.req.zone_id = this.zone_id;
-		if (!this.mdf) this.req.address = this.address;
+		this.req.zone_id = this.zone_id;
+		this.req.address = this.address;
 	  
 		var mydata = JSON.stringify({
 				"name": this.req.name,
@@ -91,10 +91,42 @@ var app = new Vue({
 			 this.send_loading = false;
 			 this.send_done = true;
            })
+		   .then(() => {
+			   if (this.send_ok) {
+				   this.gotoResult();
+			   }
+		   })
            .catch(function (err) {
              console.error(err);
            });
     },
+	getLocalData() {
+		  this.description = localStorage.getItem("description");
+		  this.userName = localStorage.getItem("userName");
+		  this.address = localStorage.getItem("address");
+		  this.zone_id = localStorage.getItem("zone_id");
+    },
+	storeLocalData() {
+		  localStorage.setItem("description", this.description);
+		  localStorage.setItem("userName", this.userName);
+		  localStorage.setItem("address", this.address);
+		  localStorage.setItem("zone_id", this.zone_id);
+    },
+	gotoEdit() {
+		this.storeLocalData();
+		location.href = "edit.html";
+	},
+	gotoResult() {
+		this.storeLocalData();
+		location.href = "result.html";
+	},
+	gotoNext() {
+		if (!this.mdf) {
+			this.confirmSend();
+		} else {
+			this.gotoEdit();
+		}		
+	},
   },
 });
 
