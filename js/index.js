@@ -2,11 +2,11 @@ var app = new Vue({
   el: "#app",
   data() {
     return {
-		description: "",
+		hello: "",
 		userName: "",
 		address: "",
 		zone_id: "",
-		mdf: false,
+		mdf: true,
 		req: {
 			name: "",
 			address: "",
@@ -22,17 +22,18 @@ var app = new Vue({
     };
   },
   beforeMount(){
-	  this.getDescription()
+	  this.getHello()
   },
   methods: {
-	getDescription() {
+	getHello() {
 		 axios({
 		   method: "get",
 		   url: "https://script.google.com/macros/s/AKfycbz2uriK0JEPFjySOkcJZAWAZb1QQ8E3Ng1tLO6oFfr7b2-K3EdSkxLNtrx9RSdlxemr/exec",
+		   params: { type: "hello" }
 		 })
 		   .then((res) => {
 			 console.log(res);
-			 this.description = res.data;
+			 this.hello = res.data;
 			})
 		   .catch(function (err) {
 			 console.error(err);
@@ -101,13 +102,13 @@ var app = new Vue({
            });
     },
 	getLocalData() {
-		  this.description = localStorage.getItem("description");
+		  this.hello = localStorage.getItem("hello");
 		  this.userName = localStorage.getItem("userName");
 		  this.address = localStorage.getItem("address");
 		  this.zone_id = localStorage.getItem("zone_id");
     },
 	storeLocalData() {
-		  localStorage.setItem("description", this.description);
+		  localStorage.setItem("hello", this.hello);
 		  localStorage.setItem("userName", this.userName);
 		  localStorage.setItem("address", this.address);
 		  localStorage.setItem("zone_id", this.zone_id);

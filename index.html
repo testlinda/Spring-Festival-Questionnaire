@@ -11,7 +11,7 @@
 	</div>
     <div id="app">
 	  <h2>想說的話寫在這邊<br/>希望能成功顯示出來</h2>	  
-      <pre style="color:darkgreen;" class="my_dialog">{{description}}</pre>
+      <pre style="color:darkgreen;" class="my_dialog">{{hello}}</pre>
 	  <hr>
       <h2>查詢之前填過的地址</h2>
       <input v-model="userName" id="input_username" type="text" placeholder="你的名子" onkeyup="enable_button()"/>
@@ -37,7 +37,7 @@
         type="radio"
         name="add"
         id="correct" />
-      <label for="correct">確認，我要送出</label><br/>
+      <label for="correct">確認，我要送出</label><br/><br/>
       <input 
 		v-model="mdf" 
 		:value="true" 
@@ -135,8 +135,8 @@
 	  border: 1px dashed forestgreen; 
 	  border-radius: 5px;
 	  background-color: #c7e3ae;
-	  padding-top: 10px;
-	  padding-bottom: 10px;
+	  padding-top: 20px;
+	  padding-bottom: 20px;
 	  padding-left: 10px;
 	  padding-right: 10px;
 	}

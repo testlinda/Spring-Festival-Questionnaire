@@ -89,9 +89,13 @@ var app = new Vue({
 			 console.log(res.data);
 			 this.search_loading = false;
 			 this.search_done = true;
-			 this.search_ok = (res.data.zipcode6 !== "");
+			 this.search_ok = (res.data.zipcode6 !== "" || res.data.zipcode !== "");
 			 if (this.search_ok) {
-				 this.zone_id = res.data.zipcode6;
+				 if (res.data.zipcode6 !== "") {
+					this.zone_id = res.data.zipcode6;
+				 } else {
+					 this.zone_id = res.data.zipcode;
+				 }
 			 }
            })
            .catch(function (err) {

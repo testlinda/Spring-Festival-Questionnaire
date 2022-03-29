@@ -3,36 +3,35 @@ var app = new Vue({
   data() {
 	  this.getLocalData();
     return {
-		description: this.description,
-		userName: this.userName,
-		address: this.address,
-		zone_id: this.zone_id,
-		mdf: false,
-		req: {
-			name: "",
-			address: "",
-			zone_id: "",
-			status: "",
-		},
-		search_loading: false,
-		search_done: false,
-		send_status: "",
-		send_loading: false,
-		send_done: false,
-		send_ok: false
+		thankyou: this.thankyou,		
     };
   },
   beforeMount(){
-	  this.getLocalData();
+	  this.getThankyou();
   },
   methods: {
+	  getThankyou() {
+		 axios({
+		   method: "get",
+		   url: "https://script.google.com/macros/s/AKfycbz2uriK0JEPFjySOkcJZAWAZb1QQ8E3Ng1tLO6oFfr7b2-K3EdSkxLNtrx9RSdlxemr/exec",
+		   params: { type: "thankyou" }
+		 })
+		   .then((res) => {
+			 console.log(res);
+			 this.thankyou = res.data;
+			})
+		   .catch(function (err) {
+			 console.error(err);
+		   });
+		 
+    },
 	  getLocalData() {
 		  this.description = localStorage.getItem("description");
 		  this.userName = localStorage.getItem("userName");
 		  this.address = localStorage.getItem("address");
 		  this.zone_id = localStorage.getItem("zone_id");
     },
-	storeLocalData() {
+	  storeLocalData() {
 		  localStorage.setItem("description", this.description);
 		  localStorage.setItem("userName", this.userName);
 		  localStorage.setItem("address", this.address);
