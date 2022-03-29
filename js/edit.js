@@ -82,7 +82,7 @@ var app = new Vue({
 		 this.search_ok = false;
          axios({
            method: "get",
-           url: "http://zip5.5432.tw/zip5json.py",
+           url: "https://zip5.5432.tw/zip5json.py",
 		   params: { adrs: this.address },
          })
            .then((res) => {
